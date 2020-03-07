@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.LocalAccountDao">
+    <select id="queryByAccountAndPwd" resultType="com.payroll.entity.LocalAccount">
+        select employee_id,password,types from local_account where employee_id=#{account} and password=#{password}
+    </select>
+
+
+</mapper>
