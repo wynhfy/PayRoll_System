@@ -31,10 +31,8 @@ public class IndexPage extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                Loginpage loginpage=new Loginpage();
                 try{
                     loginPage.start(new Stage());
-//                    primaryStage.hide();
                     primaryStage.close();
                 } catch (Exception e) {
                     e.printStackTrace();

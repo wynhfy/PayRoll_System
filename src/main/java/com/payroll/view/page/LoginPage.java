@@ -27,6 +27,7 @@ public class LoginPage extends Application {
 
     @Autowired
     private IndexPage indexPage;
+    @Autowired LocalAccountService localAccountService;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -74,15 +75,12 @@ public class LoginPage extends Application {
                 String employeeId=userTextField.getText();
                 String password=pwBox.getText();
                 int account=Integer.valueOf(employeeId);
-                LocalAccountService localAccountService=(LocalAccountService)GlobalConfig.ctx.getBean("localAccountServiceImpl");
                 int flag=localAccountService.loginCheck(account,password);
                 actiontarget.setFill(Color.FIREBRICK);
                 if(flag==1){
                     actiontarget.setText("Sign in success");
-//                    IndexPage indexPage=new IndexPage();
                     try {
                         indexPage.start(new Stage());
-//                        primaryStage.hide();
                         primaryStage.close();
                     } catch (Exception e) {
                         e.printStackTrace();
