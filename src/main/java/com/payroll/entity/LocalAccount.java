@@ -1,5 +1,8 @@
 package com.payroll.entity;
 
+/**
+ * 本地账号
+ */
 public class LocalAccount {
 
     private Integer employeeId;
