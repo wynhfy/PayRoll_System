@@ -92,6 +92,9 @@ public class DESUtil {
     }
 
     public static void main(String[] args) {
+        System.out.println("root");
+        System.out.println("密码");
+
     }
 
 }

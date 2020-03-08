@@ -11,8 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class IndexPage extends Application {
+
+    @Autowired
+    private LoginPage loginPage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,9 +31,9 @@ public class IndexPage extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Loginpage loginpage=new Loginpage();
+//                Loginpage loginpage=new Loginpage();
                 try{
-                    loginpage.start(new Stage());
+                    loginPage.start(new Stage());
 //                    primaryStage.hide();
                     primaryStage.close();
                 } catch (Exception e) {

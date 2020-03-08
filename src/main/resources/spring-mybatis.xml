@@ -20,7 +20,7 @@
     </bean>
 
 
-    <context:component-scan base-package="com.payroll.service"/>
+    <context:component-scan base-package="com.payroll"/>
 
     <!-- 2.数据库连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

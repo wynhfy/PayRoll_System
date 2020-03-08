@@ -17,11 +17,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static javafx.geometry.HPos.RIGHT;
 
-public class Loginpage extends Application {
+@Component
+public class LoginPage extends Application {
 
+    @Autowired
+    private IndexPage indexPage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -74,7 +79,7 @@ public class Loginpage extends Application {
                 actiontarget.setFill(Color.FIREBRICK);
                 if(flag==1){
                     actiontarget.setText("Sign in success");
-                    IndexPage indexPage=new IndexPage();
+//                    IndexPage indexPage=new IndexPage();
                     try {
                         indexPage.start(new Stage());
 //                        primaryStage.hide();
@@ -88,7 +93,7 @@ public class Loginpage extends Application {
             }
         });
         Scene scene=new Scene(grid,300,275);
-        scene.getStylesheets().add(Loginpage.class.getResource("/css/Login.css").toExternalForm());
+        scene.getStylesheets().add(LoginPage.class.getResource("/css/Login.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

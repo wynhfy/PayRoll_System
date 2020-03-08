@@ -1,7 +1,7 @@
 package com.payroll;
 
 import com.payroll.global.GlobalConfig;
-import com.payroll.view.page.Loginpage;
+import com.payroll.view.page.LoginPage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -16,8 +16,10 @@ public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Loginpage loginpage=new Loginpage();
-        loginpage.start(primaryStage);
+//        Loginpage loginpage=new Loginpage();
+//        loginpage.start(primaryStage);
+        LoginPage loginPage=(LoginPage) GlobalConfig.ctx.getBean("loginPage");
+        loginPage.start(primaryStage);
     }
 
     @Override
