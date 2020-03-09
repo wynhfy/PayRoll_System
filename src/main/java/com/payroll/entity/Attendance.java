@@ -34,4 +34,13 @@ public class Attendance {
     public void setArriveTime(Date arriveTime) {
         this.arriveTime = arriveTime;
     }
+
+    @Override
+    public String toString() {
+        return "Attendance{" +
+                "id=" + id +
+                ", employeeId=" + employeeId +
+                ", arriveTime=" + arriveTime +
+                '}';
+    }
 }

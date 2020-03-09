@@ -115,4 +115,22 @@ public class Employee {
     public void setWorkType(WorkType workType) {
         this.workType = workType;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age='" + age + '\'' +
+                ", nation='" + nation + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", academic='" + academic + '\'' +
+                ", createTime=" + createTime +
+                ", department=" + department +
+                ", address=" + address +
+                ", workType=" + workType +
+                '}';
+    }
 }

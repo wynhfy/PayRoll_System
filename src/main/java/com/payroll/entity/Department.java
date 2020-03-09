@@ -1,5 +1,7 @@
 package com.payroll.entity;
 
+import java.util.List;
+
 /**
  * 部门表
  */
@@ -10,6 +12,7 @@ public class Department {
     private String deptAddress;
     private Integer memberAmount;  //部门总人数
     private Integer employeeId;    //部门负责人
+    private List<Employee> employeeList;   //该部门的员工
 
     public Integer getDeptId() {
         return deptId;
@@ -49,6 +52,14 @@ public class Department {
 
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override

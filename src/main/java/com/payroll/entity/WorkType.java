@@ -41,4 +41,14 @@ public class WorkType {
     public void setBaseSalary(double baseSalary) {
         this.baseSalary = baseSalary;
     }
+
+    @Override
+    public String toString() {
+        return "WorkType{" +
+                "workTypeId=" + workTypeId +
+                ", workType='" + workType + '\'' +
+                ", grade=" + grade +
+                ", baseSalary=" + baseSalary +
+                '}';
+    }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.WorkTypeDao">
+    <insert id="insertWorkType" parameterType="com.payroll.entity.WorkType" useGeneratedKeys="true" keyColumn="work_type_id" keyProperty="workTypeId">
+        insert into work_type(work_type_id,work_type,grade,base_salary) values(#{workTypeId},#{workType},#{grade},#{baseSalary})
+    </insert>
+
+    <delete id="deleteWorkType" parameterType="int">
+        delete from work_type where work_type_id=#{workTypeId}
+    </delete>
+
+    <select id="queryWorkTypeById" parameterType="int" resultType="com.payroll.entity.WorkType">
+        select work_type_id,work_type,grade,base_salary from work_type where work_type_id=#{workTypeId}
+    </select>
+    
+    <update id="updateWorkType" parameterType="com.payroll.entity.WorkType">
+        update work_type
+        <set>
+            <if test="workType!=null and workType!=''">
+                work_type=#{workType},
+            </if>
+            <if test="grade!=null">
+                grade=#{grade},
+            </if>
+            <if test="baseSalary!=null">
+                base_salary=#{baseSalary}
+            </if>
+        </set>
+        where work_type_id=#{workTypeId}
+    </update>
+</mapper>

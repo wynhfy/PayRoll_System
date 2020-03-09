@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.EmployeeDao">
+
+    <resultMap id="employeeMap" type="com.payroll.entity.Employee">
+        <id property="employeeId" column="employee_id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="nation" column="nation"/>
+        <result property="telephone" column="telephone"/>
+        <result property="email" column="email"/>
+        <result property="academic" column="academic"/>
+        <result property="createTime" column="create_time"/>
+        <association property="department" column="dept_id" javaType="com.payroll.entity.Department">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+        <association property="address" column="address_id" javaType="com.payroll.entity.Address">
+            <id column="address_id" property="addressId"/>
+            <result column="province" property="province"/>
+            <result column="city" property="city"/>
+            <result column="area" property="area"/>
+            <result column="detail" property="detail"/>
+        </association>
+        <association property="workType" column="work_type_id" javaType="com.payroll.entity.WorkType">
+            <id column="work_type_id" property="workTypeId"/>
+            <result column="work_type" property="workType"/>
+            <result column="grade" property="grade"/>
+            <result column="base_salary" property="baseSalary"/>
+        </association>
+    </resultMap>
+
+
+    <insert id="insertEmployee"  useGeneratedKeys="true" keyColumn="employee_id" keyProperty="employeeId">
+        insert into employee(employee_id,name,sex,age,nation,telephone,email,academic,create_time,dept_id,address_id,work_type_id)
+        values(#{employeeId},#{name},#{sex},#{age},#{nation},#{telephone},#{email},#{academic},#{createTime},#{department.deptId},
+               #{address.addressId},#{workType.workTypeId})
+    </insert>
+    
+    <delete id="deleteEmployee">
+        delete from employee where employee_id=#{employeeId}
+    </delete>
+    
+    <update id="updateEmployee" parameterType="int">
+        update employee
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="sex!=null and sex!=''">
+                sex=#{sex},
+            </if>
+            <if test="age!=null and age!=''">
+                age=#{age},
+            </if>
+            <if test="nation !=null and nation!=''">
+                nation=#{nation},
+            </if>
+            <if test="telephone!=null and telephonte=''">
+                telephone=#{telephone},
+            </if>
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="academic!=null and academic!=''">
+                academic=#{academic},
+            </if>
+            <if test="createTime!=null">
+                create_time=#{createTime},
+            </if>
+            <if test="department!=null and department.deptId!=null">
+                dept_id=#{department.deptId},
+            </if>
+            <if test="address!=null and address.addressId!=null">
+                address_id=#{address.addressId},
+            </if>
+            <if test="workType!=null and workType.workTypeId!=null">
+                work_type_id=#{workType.workTypeId}
+            </if>
+        </set>
+        where employee_id=#{employeeId}
+    </update>
+
+    <select id="queryEmployeeList"  parameterType="int" resultMap="employeeMap">
+        select name,sex,age,nation,telephone,email,academic,create_time,dept_id,address_id,work_type_id where employee_id=#{employeeId}
+    </select>
+
+    <select id="queryEmployee" parameterType="com.payroll.entity.Employee" resultMap="employeeMap">
+        select e.employee_id,e.name,e.sex,e.age,e.nation,e.telephone,e.email,e.academic,e.create_time,
+               d.dept_id,d.dept_name,d.dept_address,d.member_amount,d.employee_id,
+               a.address_id,a.province,a.city,a.area,a.detail,
+               w.work_type_id,w.work_type,w.grade,w.base_salary
+        from employee e left join department d on e.dept_id=d.dept_id
+          left join address a on e.address_id=a.address_id
+          left join work_type w on e.work_type_id=w.work_type_id
+        <where>
+            <if test="employeeId!=null">
+                and employee_id=#{employeeId}
+            </if>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="sex!=null and sex!=''">
+                and sex=#{sex}
+            </if>
+            <if test="age!=null">
+                and age=#{age}
+            </if>
+            <if test="nation!=null and nation!=''">
+                and nation=#{nation}
+            </if>
+            <if test="telephone!=null and telephone!=''">
+                and telephone=#{telephone}
+            </if>
+            <if test="email!=null and email!=''">
+                and email=#{email}
+            </if>
+            <if test="academic!=null and academic!=''">
+                and academic=#{academic}
+            </if>
+            <if test="createTime!=null">
+                and create_time=#{createTime}
+            </if>
+            <if test="department!=null and department.deptId!=null">
+                and dept_id=#{department.deptId}
+            </if>
+            <if test="address!=null and address.addressId!=null">
+                and address_id=#{addressId}
+            </if>
+            <if test="workType!=null and workType.workTypeId!=null">
+                work_type_id=#{workTypeId}
+            </if>
+        </where>
+    </select>
+
+    
+</mapper>
