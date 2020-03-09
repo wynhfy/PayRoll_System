@@ -50,4 +50,15 @@ public class Department {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
+                ", deptAddress='" + deptAddress + '\'' +
+                ", memberAmount=" + memberAmount +
+                ", employeeId=" + employeeId +
+                '}';
+    }
 }

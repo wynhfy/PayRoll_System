@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.AddressDao">
+
+
+    <insert id="insertAddress" parameterType="com.payroll.entity.Address" useGeneratedKeys="true" keyProperty="addressId" keyColumn="address_id">
+        insert into address(address_id,province,city,area,detail) values(#{addressId},#{province},#{city},#{area},#{detail})
+    </insert>
+
+    <delete id="deleteAddress"  parameterType="int">
+        delete from address where address_id=#{addressId}
+    </delete>
+
+    <select id="queryAddressByAddressId" parameterType="int" resultType="com.payroll.entity.Address">
+        select address_id,province,city,area,detail from address where address_id=#{addressId}
+    </select>
+
+    <update id="updateAddress" parameterType="com.payroll.entity.Address">
+        update address
+        <set>
+            <if test="province!=null and province!=''">
+                province=#{province},
+            </if>
+            <if test="city!=null and city!=''">
+                city=#{city},
+            </if>
+            <if test="area!=null and area!=''">
+                area=#{area},
+            </if>
+            <if test="detail!=null and detail!=''">
+                detail=#{detail},
+            </if>
+        </set>
+        where address_id=#{addressId}
+    </update>
+
+</mapper>

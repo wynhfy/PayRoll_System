@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.DepartmentDao">
+
+    <insert id="insertDepartment" parameterType="com.payroll.entity.Department">
+        insert into department(dept_id,dept_name,dept_address,member_amount,employee_id)
+        values(#{deptId},#{deptName},#{deptAddress},#{memberAmount},#{employeeId})
+    </insert>
+
+    <delete id="deleteDepartment" parameterType="int">
+        delete from department where dept_id=#{deptId}
+    </delete>
+
+    <select id="queryDepartmentById" resultType="com.payroll.entity.Department">
+        select dept_id,dept_name,dept_address,member_amount,employee_id from department where dept_id=#{deptId};
+    </select>
+
+    <select id="queryDepartmentByName" resultType="com.payroll.entity.Department">
+        select dept_id,dept_name,dept_address,member_amount,employee_id from department where dept_name=#{deptName};
+    </select>
+
+    <update id="updateDepartment" parameterType="com.payroll.entity.Department">
+        update department
+        <set>
+            <if test="deptName!=null and deptName!=''">
+                 dept_name=#{deptName},
+            </if>
+            <if test="deptAddress!=null and deptAddress!=''">
+                 dept_address=#{deptAddress},
+            </if>
+            <if test="memberAmount!=null">
+                 member_amount=#{memberAmount},
+            </if>
+            <if test="employeeId!=null">
+                 employee_id=#{employeeId},
+            </if>
+        </set>
+        where dept_id=#{deptId}
+    </update>
+
+</mapper>
