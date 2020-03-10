@@ -8,6 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class IndexPage extends Application {
+
 
     @Autowired
     private LoginPage loginPage;
