@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.OverWorkDao">
+    <insert id="insertOverWork" parameterType="com.payroll.entity.OverWork" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into overwork(employee_id,start_time,end_time,overwork_id) values(#{employeeId},#{startTime},#{endTime},#{overWorkId})
+    </insert>
+
+    <delete id="deleteOverWork" parameterType="int">
+        delete from overwork where id=#{id}
+    </delete>
+
+    <delete id="deleteOverWorkByEmployeeId" parameterType="int">
+        delete from overwork where employee_id=#{employeeId}
+    </delete>
+
+    <select id="queryById" parameterType="int" resultType="com.payroll.entity.OverWork">
+        select id,employee_id,start_time,end_time,overwork_id from overwork where employee_id=#{employeeId}
+    </select>
+    <select id="queryByDate" parameterType="String" resultType="com.payroll.entity.OverWork">
+        select id,employee_id,start_time,end_time,overwork_id from overwork
+        where DATE_FORMAT(start_time,'%Y%m%d') like concat(#{startTime},'%')
+    </select>
+</mapper>

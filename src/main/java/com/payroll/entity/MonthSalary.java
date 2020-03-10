@@ -3,7 +3,7 @@ package com.payroll.entity;
 /**
  * 月工资表
  */
-public class monthSalary {
+public class MonthSalary {
 
     private Integer id;
     private Integer employeeId;

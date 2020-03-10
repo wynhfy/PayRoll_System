@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.MonthSalaryDao">
+    <insert id="insertMonthSalary" parameterType="com.payroll.entity.MonthSalary" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into month_salary(employee_id,name,base_salary,add_salary,dec_salary,total_salary,year_num,month_num)
+        values(#{employeeId},#{name},#{baseSalary},#{addSalary},#{decSalary},#{totalSalary},#{yearNum},#{monthNum})
+    </insert>
+
+    <delete id="deleteByEmployeeId" parameterType="int">
+        delete from month_salary where employee_id=#{employeeId}
+    </delete>
+
+    <select id="queryMonthSalary" parameterType="com.payroll.entity.MonthSalary">
+        select id,employee_id,name,base_salary,add_salary,dec_salary,total_salary,year_num,month_num from month_salary
+        <where>
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="employeeId!=null">
+                and employee_id=#{employeeId}
+            </if>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="baseSalary!=null">
+                and base_salary=#{baseSalary}
+            </if>
+            <if test="addSalary!=null">
+                and add_salary=#{addSalary}
+            </if>
+            <if test="decSalary!=null">
+                and dec_salary=#{decSalary}
+            </if>
+            <if test="totalSalary!=null">
+                and total_salary=#{totalSalary}
+            </if>
+            <if test="yearNum!=null">
+                and yaer_num=#{yearNum}
+            </if>
+            <if test="monthNum=null">
+                and month_num=#{monthNum}
+            </if>
+        </where>
+    </select>
+
+</mapper>
