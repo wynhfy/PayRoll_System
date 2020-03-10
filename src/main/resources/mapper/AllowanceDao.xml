@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payroll.dao.AllowanceDao">
+    <select id="queryById" parameterType="int" resultType="com.payroll.entity.Allowance">
+        select id,employee_id,over_time,over_day,benefit_salary,year_num,month_num from allowance
+        where employee_id=#{employeeId}
+    </select>
+
+    <select id="queryByDate" resultType="com.payroll.entity.Allowance">
+        select id,employee_id,over_time,over_day,benefit_salary,year_num,month_num from allowance
+        where year_num=#{year} and month_num=#{month}
+    </select>
+
+    <delete id="deleteAllowance" parameterType="int">
+        delete from allowance where id=#{id}
+    </delete>
+
+    <delete id="deleteAllowanceByEmployeeId" parameterType="int">
+        delete from allowance where employee_id=#{employeeId}
+    </delete>
+</mapper>

@@ -68,4 +68,17 @@ public class Allowance {
     public void setMonthNum(Integer monthNum) {
         this.monthNum = monthNum;
     }
+
+    @Override
+    public String toString() {
+        return "Allowance{" +
+                "id=" + id +
+                ", employeeId=" + employeeId +
+                ", overTime=" + overTime +
+                ", overDay=" + overDay +
+                ", benefitSalary=" + benefitSalary +
+                ", yearNum=" + yearNum +
+                ", monthNum=" + monthNum +
+                '}';
+    }
 }

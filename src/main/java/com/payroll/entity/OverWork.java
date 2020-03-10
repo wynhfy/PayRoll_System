@@ -52,4 +52,15 @@ public class OverWork {
     public void setOverWorkId(Integer overWorkId) {
         this.overWorkId = overWorkId;
     }
+
+    @Override
+    public String toString() {
+        return "OverWork{" +
+                "id=" + id +
+                ", employeeId=" + employeeId +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", overWorkId=" + overWorkId +
+                '}';
+    }
 }

@@ -7,8 +7,16 @@
         insert into attendance(employee_id,arrive_time) values(#{employeeId},#{arriveTime})
     </insert>
 
+    <delete id="deleteAttendance" parameterType="int">
+        delete from attendance where id=#{id}
+    </delete>
+
+    <delete id="deleteAttendanceByEmployeeId" parameterType="int">
+        delete from attendance where employee_id=#{employeeId}
+    </delete>
+
     <select id="queryById" resultType="com.payroll.entity.Attendance" parameterType="int">
-        select id,employee_id,arrive_time from attendance where id=#{id}
+        select id,employee_id,arrive_time from attendance where employee_id=#{employeeId}
     </select>
 
     <select id="queryByDate" parameterType="String" resultType="com.payroll.entity.Attendance">

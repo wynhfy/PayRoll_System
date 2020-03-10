@@ -59,4 +59,16 @@ public class Deduction {
     public void setDebit(double debit) {
         this.debit = debit;
     }
+
+    @Override
+    public String toString() {
+        return "Deduction{" +
+                "id=" + id +
+                ", employeeId=" + employeeId +
+                ", yearNum=" + yearNum +
+                ", monthNum=" + monthNum +
+                ", totalDay=" + totalDay +
+                ", debit=" + debit +
+                '}';
+    }
 }
