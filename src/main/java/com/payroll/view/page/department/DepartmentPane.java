@@ -174,5 +174,11 @@ public class DepartmentPane extends TreeTableView<Department> {
         rootItem.getChildren().remove(index);
     }
 
+    public TreeItem getRootItem() {
+        return rootItem;
+    }
 
+    public void setRootItem(TreeItem rootItem) {
+        this.rootItem = rootItem;
+    }
 }

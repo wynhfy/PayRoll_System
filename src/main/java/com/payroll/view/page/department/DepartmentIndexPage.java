@@ -183,7 +183,13 @@ public class DepartmentIndexPage extends Application
         int index = departmentPane.getSelectionModel().getSelectedIndex();
         if(index >= 0)
         {
-            departmentPane.remove(index);
+            TreeItem<Department> item=(TreeItem<Department>) departmentPane.getRootItem().getChildren().get(index);
+            Department department=item.getValue();
+            if(departmentService.deleteDepartment(department)){
+                departmentPane.remove(index);
+            }else{
+                System.out.println("删除失败");
+            }
         }
     }
 

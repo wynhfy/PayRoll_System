@@ -41,7 +41,7 @@
     </select>
 
     <select id="queryDepartmentByName" resultMap="departmentMap">
-        select dept_id,dept_name,dept_address,member_amount,employee_id from department where dept_name=#{deptName};
+        select dept_id,dept_name,dept_address,member_amount,employee_id from department where dept_name like concat('%',#{deptName},'%');
     </select>
 
     <select id="queryAllDepartment" resultMap="departmentMap">

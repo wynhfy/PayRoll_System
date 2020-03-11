@@ -57,4 +57,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department getDepartmentByName(String name) {
         return departmentDao.queryDepartmentByName(name);
     }
+
+    @Override
+    public boolean deleteDepartment(Department department) {
+        int effectedNum=0;
+        if(department!=null && department.getDeptId()!=null){
+            effectedNum=departmentDao.deleteDepartment(department.getDeptId());
+        }
+        if(effectedNum==1){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

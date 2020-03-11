@@ -14,4 +14,6 @@ public interface DepartmentService {
 
     public Department getDepartmentByName(String name);
 
+    public boolean deleteDepartment(Department department);
+
 }
