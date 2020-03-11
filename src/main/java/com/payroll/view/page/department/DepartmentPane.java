@@ -133,12 +133,17 @@ public class DepartmentPane extends TreeTableView<Department> {
 
         // 动态设置列宽
         double w = this.getWidth();
-        double w0 = w * 0.3;
-        double w1 = w * 0.4;
-        double w2 = w - w0 - w1 - 20;
+        double w0 = w * 0.2;
+        double w1 = w * 0.2;
+        double w2 = w * 0.2;
+        double w3 = w * 0.2;
+        double w4 = w * 0.2;
+       // double w2 = w - w0 - w1 - 2
         columns[0].setPrefWidth(w0);
         columns[1].setPrefWidth(w1);
         columns[2].setPrefWidth(w2);
+        columns[3].setPrefWidth(w3);
+        columns[4].setPrefWidth(w4);
     }
 
     // 清空
