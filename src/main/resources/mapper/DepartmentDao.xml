@@ -13,9 +13,23 @@
         <collection property="employeeList" column="dept_id" select="com.payroll.dao.EmployeeDao.queryEmployeeList"/>
     </resultMap>
 
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="deptAddress!=null">dept_address,</if>
+            <if test="memberAmount!=null">dept_amount,</if>
+            <if test="employeeId!=null">employeeId,</if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="deptAddress!=null">#{deptAddress},</if>
+            <if test="memberAmount!=null">#{memberAmount},</if>
+            <if test="employeeId!=null">#{employeeId}</if>
+        </trim>
+    </sql>
     <insert id="insertDepartment" parameterType="com.payroll.entity.Department" useGeneratedKeys="true" keyProperty="deptId" keyColumn="dept_id">
-        insert into department(dept_id,dept_name,dept_address,member_amount,employee_id)
-        values(#{deptId},#{deptName},#{deptAddress},#{memberAmount},#{employeeId})
+        insert into department(dept_id,dept_name,<include refid="key"/>)
+        values(#{deptId},#{deptName},<include refid="value"/> )
     </insert>
 
     <delete id="deleteDepartment" parameterType="int">
@@ -28,6 +42,10 @@
 
     <select id="queryDepartmentByName" resultMap="departmentMap">
         select dept_id,dept_name,dept_address,member_amount,employee_id from department where dept_name=#{deptName};
+    </select>
+
+    <select id="queryAllDepartment" resultMap="departmentMap">
+        select dept_id,dept_name,dept_address,member_amount,employee_id from department
     </select>
 
     <update id="updateDepartment" parameterType="com.payroll.entity.Department">

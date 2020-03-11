@@ -60,7 +60,11 @@ public class AddDepartmentDialog extends Dialog<Boolean> {
             Department department = new Department();
             department.setDeptName(deptName.getText());
             department.setDeptAddress(deptAddress.getText());
-            department.setEmployeeId(Integer.valueOf(employeeId.getText()));
+            if("".equals(employeeId.getText())){
+                department.setEmployeeId(null);
+            }else{
+                department.setEmployeeId(Integer.valueOf(employeeId.getText()));
+            }
             return department;
 
         }catch(Exception e)

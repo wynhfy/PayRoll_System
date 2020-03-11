@@ -164,6 +164,7 @@ public class DepartmentPane extends TreeTableView<Department> {
 
     public void add(Department data)
     {
+        data.setMemberAmount(0);
         TreeItem item = new TreeItem(data);
         rootItem.getChildren().add(item);
     }

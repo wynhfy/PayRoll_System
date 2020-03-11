@@ -1,5 +1,7 @@
 package com.payroll.view.page;
 
+import com.payroll.global.GlobalConfig;
+import com.payroll.view.page.department.DepartmentIndexPage;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,9 +43,23 @@ public class IndexPage extends Application {
                 }
             }
         });
+
+        Button btndept=new Button("dept");
+        btndept.setOnAction((ActionEvent e)->{
+            try{
+                DepartmentIndexPage departmentIndexPage=new DepartmentIndexPage();
+                departmentIndexPage.start(new Stage());
+                primaryStage.close();
+            }catch (Exception msg){
+                msg.printStackTrace();
+            }
+        });
+
+
         HBox hbBtn=new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
+        hbBtn.getChildren().add(btndept);
 
         stackPane.getChildren().add(hbBtn);
 

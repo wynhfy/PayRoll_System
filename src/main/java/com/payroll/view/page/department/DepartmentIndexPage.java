@@ -6,32 +6,42 @@ import java.util.List;
 import java.util.Optional;
 
 
+import com.payroll.dao.DepartmentDao;
+import com.payroll.dao.EmployeeDao;
 import com.payroll.entity.Department;
+import com.payroll.global.GlobalConfig;
+import com.payroll.service.DepartmentService;
+import com.payroll.view.page.IndexPage;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Separator;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 
 public class DepartmentIndexPage extends Application
 {
-    Stage primaryStage;// 主窗口
+    private IndexPage indexPage= (IndexPage) GlobalConfig.ctx.getBean("indexPage");
+    private DepartmentService departmentService=(DepartmentService)GlobalConfig.ctx.getBean("departmentServiceImpl");
+
     MenuBar menuBar = new MenuBar();
+    TextField search=new TextField();
     DepartmentPane departmentPane = new DepartmentPane();
 
     // 上下文菜单
@@ -42,11 +52,31 @@ public class DepartmentIndexPage extends Application
     {
         try
         {
-            initMenuBar(); // 初始化菜单栏
+            initMenuBar(primaryStage); // 初始化菜单栏
             initContextMenu(); // 初始化右键菜单
+            initData();  //初始化数据
             BorderPane root = new BorderPane();
+            search.setPromptText("搜索");
+            search.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if(search.getText()==null||"".equals(search.getText())){
+                        departmentPane.clear();
+                        initData();
+                    }
+                }
+            });
+            search.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    if(event.getCode()== KeyCode.ENTER){
+                        updatePane();
+                    }
+                }
+            });
             root.setTop(menuBar);
-            root.setCenter(departmentPane);
+            root.setCenter(search);
+            root.setBottom(departmentPane);
             Scene scene = new Scene(root, 400, 400);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -56,10 +86,28 @@ public class DepartmentIndexPage extends Application
         }
     }
 
-    private void initMenuBar()
+    private void updatePane(){
+        String name=search.getText();
+        if(name!=null||!"".equals(name)){
+            Department department=departmentService.getDepartmentByName(name);
+            if(department!=null){
+                departmentPane.clear();
+                departmentPane.add(department);
+            }
+        }
+    }
+
+    /**
+     * 显示初始化数据
+     */
+    private void initData(){
+        List<Department> departmentList=departmentService.getDepartmentList();
+        departmentPane.add(departmentList);
+    }
+
+    private void initMenuBar(Stage primaryStage)
     {
         Menu menu = new Menu("选项");
-        Menu menuHelp = new Menu("帮助");
         menuBar.getMenus().addAll(menu);
 
         MenuItem menuItemBack = new MenuItem("返回");
@@ -70,7 +118,13 @@ public class DepartmentIndexPage extends Application
         menu.getItems().addAll(menuItemBack, menuItemHelp, separator, menuItemExit);
 
         menuItemBack.setOnAction((ActionEvent e)->{
-            System.out.println("back");
+            try{
+                indexPage.start(new Stage());
+                primaryStage.close();
+            }catch (Exception msg){
+                msg.printStackTrace();
+            }
+            //System.out.println("back");
         });
 
         menuItemHelp.setOnAction((ActionEvent e)->{
@@ -80,19 +134,6 @@ public class DepartmentIndexPage extends Application
         menuItemExit.setOnAction((ActionEvent e)->{
             Platform.exit();
         });
-    }
-
-
-    // 打开一个文件
-    private void onOpen()
-    {
-        System.out.println("onOpen");
-    }
-
-    // 保存到文件
-    private void onSave()
-    {
-        System.out.println("onSave");
     }
 
     // 初始化上下文菜单
@@ -108,7 +149,6 @@ public class DepartmentIndexPage extends Application
             removeItem();
         });
 
-
         // 添加菜单项
         contextMenu.getItems().addAll(menuItemAdd, menuItemRemove);
 
@@ -123,8 +163,17 @@ public class DepartmentIndexPage extends Application
         Optional<Boolean> result = dlg.showAndWait();
         if( result.isPresent() && result.get() == true)
         {
-            Department s = dlg.getValue(); // getValue()是自己添加的方法
-            departmentPane.add(s );
+            Department department = dlg.getValue(); // getValue()是自己添加的方法
+            if(departmentService.checkDepartmentExist(department.getDeptName())){
+                System.out.println("插入失败");
+            }else{
+                if(departmentService.insertDepartment(department)){
+
+                    departmentPane.add(department);
+                }else{
+                    System.out.println("插入失败");
+                }
+            }
         }
     }
 

@@ -85,7 +85,8 @@
     </update>
 
     <select id="queryEmployeeList"  parameterType="int" resultMap="employeeMap">
-        select name,sex,age,nation,telephone,email,academic,create_time,dept_id,address_id,work_type_id where employee_id=#{employeeId}
+        select name,sex,age,nation,telephone,email,academic,create_time,dept_id,address_id,work_type_id
+          from employee where employee_id=#{employeeId}
     </select>
 
     <select id="queryEmployee" parameterType="com.payroll.entity.Employee" resultMap="employeeMap">
