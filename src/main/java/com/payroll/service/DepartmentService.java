@@ -16,4 +16,6 @@ public interface DepartmentService {
 
     public boolean deleteDepartment(Department department);
 
+    public boolean updateDepartment(Department department);
+
 }

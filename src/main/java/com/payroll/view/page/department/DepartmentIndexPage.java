@@ -34,7 +34,9 @@ import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
+/**
+ *  部门管理主页
+ */
 public class DepartmentIndexPage extends Application
 {
     private IndexPage indexPage= (IndexPage) GlobalConfig.ctx.getBean("indexPage");
@@ -77,7 +79,7 @@ public class DepartmentIndexPage extends Application
             root.setTop(menuBar);
             root.setCenter(search);
             root.setBottom(departmentPane);
-            Scene scene = new Scene(root, 400, 400);
+            Scene scene = new Scene(root, 800, 400);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e)
@@ -93,6 +95,8 @@ public class DepartmentIndexPage extends Application
             if(department!=null){
                 departmentPane.clear();
                 departmentPane.add(department);
+            }else{
+                departmentPane.clear();
             }
         }
     }
@@ -144,13 +148,23 @@ public class DepartmentIndexPage extends Application
             addItem();
         });
 
+        MenuItem menuItemQuery=new MenuItem("查看");
+        menuItemQuery.setOnAction((ActionEvent e)->{
+
+        });
+
+        MenuItem menuItemUpdate=new MenuItem("修改");
+        menuItemUpdate.setOnAction((ActionEvent e)->{
+            updateItem();
+        });
+
         MenuItem menuItemRemove = new MenuItem("删除");
         menuItemRemove.setOnAction((ActionEvent e) -> {
             removeItem();
         });
 
         // 添加菜单项
-        contextMenu.getItems().addAll(menuItemAdd, menuItemRemove);
+        contextMenu.getItems().addAll(menuItemAdd,menuItemQuery,menuItemUpdate, menuItemRemove);
 
         // 给ListView设置上下文菜单
         departmentPane.setContextMenu(contextMenu);
@@ -177,6 +191,27 @@ public class DepartmentIndexPage extends Application
         }
     }
 
+    private  void  updateItem(){
+       int index=departmentPane.getSelectionModel().getSelectedIndex();
+       if(index>=0){
+           TreeItem<Department> item=(TreeItem<Department>)departmentPane.getRootItem().getChildren().get(index);
+           Department department=item.getValue();
+           UpdateDepartmentDialog updateDepartmentDialog=new UpdateDepartmentDialog(department);
+           Optional<Boolean> result=updateDepartmentDialog.showAndWait();
+           if(result.isPresent() && result.get()==true){
+               department=updateDepartmentDialog.getValue();
+//               System.out.println(department);
+               if(departmentService.updateDepartment(department)){
+                   departmentPane.clear();
+                   initData();
+               }else{
+                   System.out.println("更新失败");
+               }
+           }
+       }
+
+    }
+
     // 点菜单项 '删除'
     private void removeItem()
     {
@@ -185,10 +220,14 @@ public class DepartmentIndexPage extends Application
         {
             TreeItem<Department> item=(TreeItem<Department>) departmentPane.getRootItem().getChildren().get(index);
             Department department=item.getValue();
-            if(departmentService.deleteDepartment(department)){
-                departmentPane.remove(index);
+            if(department.getMemberAmount()!=null||department.getMemberAmount()!=0){
+                if(departmentService.deleteDepartment(department)){
+                    departmentPane.remove(index);
+                }else{
+                    System.out.println("删除失败");
+                }
             }else{
-                System.out.println("删除失败");
+                System.out.println("人数不为0，不能删除");
             }
         }
     }

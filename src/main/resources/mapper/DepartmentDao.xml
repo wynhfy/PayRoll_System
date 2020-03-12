@@ -17,7 +17,7 @@
         <trim suffixOverrides=",">
             <if test="deptAddress!=null">dept_address,</if>
             <if test="memberAmount!=null">dept_amount,</if>
-            <if test="employeeId!=null">employeeId,</if>
+            <if test="employeeId!=null">employee_id,</if>
         </trim>
     </sql>
     <sql id="value">

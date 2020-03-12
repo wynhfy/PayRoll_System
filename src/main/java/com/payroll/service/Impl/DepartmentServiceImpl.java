@@ -70,4 +70,10 @@ public class DepartmentServiceImpl implements DepartmentService {
             return false;
         }
     }
+
+    @Override
+    public boolean updateDepartment(Department department) {
+        int effectedNum=departmentDao.updateDepartment(department);
+        return effectedNum==1?true:false;
+    }
 }
