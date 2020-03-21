@@ -37,7 +37,7 @@ import org.springframework.stereotype.Component;
 /**
  *  部门管理主页
  */
-public class DepartmentIndexPage extends Application
+public class DepartmentIndexPage
 {
     private IndexPage indexPage= (IndexPage) GlobalConfig.ctx.getBean("indexPage");
     private DepartmentService departmentService=(DepartmentService)GlobalConfig.ctx.getBean("departmentServiceImpl");
@@ -49,12 +49,12 @@ public class DepartmentIndexPage extends Application
     // 上下文菜单
     ContextMenu contextMenu = new ContextMenu();
 
-    @Override
-    public void start(Stage primaryStage)
+    //    @Override
+    public BorderPane start()
     {
         try
         {
-            initMenuBar(primaryStage); // 初始化菜单栏
+            initMenuBar(); // 初始化菜单栏
             initContextMenu(); // 初始化右键菜单
             initData();  //初始化数据
             BorderPane root = new BorderPane();
@@ -79,13 +79,17 @@ public class DepartmentIndexPage extends Application
             root.setTop(menuBar);
             root.setCenter(search);
             root.setBottom(departmentPane);
-            Scene scene = new Scene(root, 800, 400);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            root.setPrefWidth(700);
+//            Scene scene = new Scene(root, 800, 400);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+            return root;
         } catch (Exception e)
         {
             e.printStackTrace();
+            return null;
         }
+
     }
 
     private void updatePane(){
@@ -109,7 +113,7 @@ public class DepartmentIndexPage extends Application
         departmentPane.add(departmentList);
     }
 
-    private void initMenuBar(Stage primaryStage)
+    private void initMenuBar()
     {
         Menu menu = new Menu("选项");
         menuBar.getMenus().addAll(menu);
@@ -121,15 +125,15 @@ public class DepartmentIndexPage extends Application
 
         menu.getItems().addAll(menuItemBack, menuItemHelp, separator, menuItemExit);
 
-        menuItemBack.setOnAction((ActionEvent e)->{
-            try{
-                indexPage.start(new Stage());
-                primaryStage.close();
-            }catch (Exception msg){
-                msg.printStackTrace();
-            }
-            //System.out.println("back");
-        });
+//        menuItemBack.setOnAction((ActionEvent e)->{
+//            try{
+//                indexPage.start(new Stage());
+//
+//            }catch (Exception msg){
+//                msg.printStackTrace();
+//            }
+//            //System.out.println("back");
+//        });
 
         menuItemHelp.setOnAction((ActionEvent e)->{
             System.out.println("help");
@@ -192,23 +196,23 @@ public class DepartmentIndexPage extends Application
     }
 
     private  void  updateItem(){
-       int index=departmentPane.getSelectionModel().getSelectedIndex();
-       if(index>=0){
-           TreeItem<Department> item=(TreeItem<Department>)departmentPane.getRootItem().getChildren().get(index);
-           Department department=item.getValue();
-           UpdateDepartmentDialog updateDepartmentDialog=new UpdateDepartmentDialog(department);
-           Optional<Boolean> result=updateDepartmentDialog.showAndWait();
-           if(result.isPresent() && result.get()==true){
-               department=updateDepartmentDialog.getValue();
+        int index=departmentPane.getSelectionModel().getSelectedIndex();
+        if(index>=0){
+            TreeItem<Department> item=(TreeItem<Department>)departmentPane.getRootItem().getChildren().get(index);
+            Department department=item.getValue();
+            UpdateDepartmentDialog updateDepartmentDialog=new UpdateDepartmentDialog(department);
+            Optional<Boolean> result=updateDepartmentDialog.showAndWait();
+            if(result.isPresent() && result.get()==true){
+                department=updateDepartmentDialog.getValue();
 //               System.out.println(department);
-               if(departmentService.updateDepartment(department)){
-                   departmentPane.clear();
-                   initData();
-               }else{
-                   System.out.println("更新失败");
-               }
-           }
-       }
+                if(departmentService.updateDepartment(department)){
+                    departmentPane.clear();
+                    initData();
+                }else{
+                    System.out.println("更新失败");
+                }
+            }
+        }
 
     }
 
@@ -232,10 +236,10 @@ public class DepartmentIndexPage extends Application
         }
     }
 
-    public static void main(String[] args)
-    {
-        launch(args);
-    }
+//    public static void main(String[] args)
+//    {
+//        launch(args);
+//    }
 }
 
 

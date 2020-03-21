@@ -72,11 +72,12 @@ public class LoginPage extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String employeeId=userTextField.getText();
-                String password=pwBox.getText();
-                int account=Integer.valueOf(employeeId);
-                int flag=localAccountService.loginCheck(account,password);
-                actiontarget.setFill(Color.FIREBRICK);
+//                String employeeId=userTextField.getText();
+//                String password=pwBox.getText();
+//                int account=Integer.valueOf(employeeId);
+////                int flag=localAccountService.loginCheck(account,password);
+//                actiontarget.setFill(Color.FIREBRICK);
+                int flag = 1;
                 if(flag==1){
                     actiontarget.setText("Sign in success");
                     try {

@@ -1,0 +1,48 @@
+#borderPane{
+    -fx-pref-width: 1500;
+    -fx-pref-height: 700;
+}
+
+
+
+#flowPane{
+    -fx-background-image: url("/static/imageTop.jpg");
+    /*-fx-background-color:#00ffff;*/
+    -fx-pref-width: 1000;
+    -fx-pref-height: 25;
+    -fx-hgap: 30;
+}
+
+#labelId{
+    -fx-font-size: 15;
+}
+
+#labelName{
+    -fx-font-size: 15;
+}
+
+#vbox{
+    -fx-background-image: url("/static/imageLeft.jpg");
+    -fx-pref-width: 272;
+    -fx-pref-height: 600;
+}
+
+#btn{
+
+}
+
+#btnLeave{
+
+}
+
+#btnmember{
+    -fx-font-size: 20;
+}
+
+#btndepartment{
+    -fx-font-size: 20;
+}
+
+#btnSalary{
+    -fx-font-size: 20;
+}

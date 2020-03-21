@@ -1,0 +1,15 @@
+#borderPane{
+    -fx-pref-width: 1000;
+    -fx-pref-height: 700;
+}
+
+#vbox{
+    -fx-background-image: url("/static/imageLeft.jpg");
+    -fx-pref-width: 1000;
+    -fx-pref-height: 300;
+}
+
+#table{
+    -fx-pref-width: 830;
+    -fx-pref-height: 550;
+}

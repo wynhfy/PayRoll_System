@@ -9,9 +9,13 @@ public interface EmployeeDao {
 
     public int deleteEmployee(Integer employeeId);
 
-    public Employee queryEmployee(Employee employeeId);
+    public Employee queryEmployee(Employee employee);
+
+    public List<Employee> queryAllEmployee();
 
     public int updateEmployee(Employee employee);
+
+
 
     /**
      * 根据部门id查询员工
@@ -19,5 +23,12 @@ public interface EmployeeDao {
      * @return
      */
     public List<Employee> queryEmployeeList(Integer deptId);
+
+    /**
+     * 根据工号查询员工id
+     * @param employeeId
+     * @return
+     */
+    public Employee queryByEmployeeId(Integer employeeId);
 
 }

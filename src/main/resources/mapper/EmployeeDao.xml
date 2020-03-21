@@ -17,6 +17,9 @@
         <association property="department" column="dept_id" javaType="com.payroll.entity.Department">
             <id column="dept_id" property="deptId"/>
             <result column="dept_name" property="deptName"/>
+            <result column="dept_address" property="deptAddress"/>
+            <result column="member_amount" property="memberAmount"/>
+            <result column="employee_id" property="employeeId"/>
         </association>
         <association property="address" column="address_id" javaType="com.payroll.entity.Address">
             <id column="address_id" property="addressId"/>
@@ -135,6 +138,27 @@
                 work_type_id=#{workTypeId}
             </if>
         </where>
+    </select>
+
+    <select id="queryAllEmployee" resultMap="employeeMap">
+        select e.employee_id,e.name,e.sex,e.age,e.nation,e.telephone,e.email,e.academic,e.create_time,
+               d.dept_id,d.dept_name,d.dept_address,d.member_amount,d.employee_id,
+               a.address_id,a.province,a.city,a.area,a.detail,
+               w.work_type_id,w.work_type,w.grade,w.base_salary
+        from employee e left join department d on e.dept_id=d.dept_id
+                        left join address a on e.address_id=a.address_id
+                        left join work_type w on e.work_type_id=w.work_type_id
+    </select>
+
+    <select id="queryByEmployeeId" resultMap="employeeMap" parameterType="int">
+        select e.employee_id,e.name,e.sex,e.age,e.nation,e.telephone,e.email,e.academic,e.create_time,
+               d.dept_id,d.dept_name,d.dept_address,d.member_amount,d.employee_id,
+               a.address_id,a.province,a.city,a.area,a.detail,
+               w.work_type_id,w.work_type,w.grade,w.base_salary
+        from employee e left join department d on e.dept_id=d.dept_id
+                        left join address a on e.address_id=a.address_id
+                        left join work_type w on e.work_type_id=w.work_type_id
+        where e.employee_id=#{employeeId}
     </select>
 
     

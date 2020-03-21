@@ -1,0 +1,106 @@
+#gridPane{
+    -fx-background-image: url("/static/addMember.jpg");
+    -fx-pref-width: 700;
+    -fx-pref-height: 450;
+    -fx-hgap: 5.5;
+    -fx-vhap: 5.5;
+}
+
+#displayPane{
+    -fx-background-image: url("/static/display.jpg");
+    -fx-pref-width: 900;
+    -fx-pref-height: 450;
+}
+
+
+#workId{
+    -fx-font-size: 24;
+}
+
+#name{
+    -fx-font-size: 24;
+}
+
+#sex{
+    -fx-font-size: 24;
+}
+
+#age{
+    -fx-font-size: 24;
+}
+
+#nation{
+    -fx-font-size: 24;
+}
+
+#telephone{
+    -fx-font-size: 24;
+}
+
+#email{
+    -fx-font-size: 24;
+}
+
+#acdemic{
+    -fx-font-size: 24;
+}
+
+#createTime{
+    -fx-font-size: 24;
+}
+
+#province{
+    -fx-font-size: 24;
+}
+
+#city{
+    -fx-font-size: 24;
+}
+
+#area{
+    -fx-font-size: 24;
+}
+
+#detail{
+    -fx-font-size: 24;
+}
+
+#deptName{
+    -fx-font-size: 24;
+}
+
+#deptAddress{
+    -fx-font-size: 24;
+}
+
+#memberAccount{
+    -fx-font-size: 24;
+}
+
+#employeeId{
+    -fx-font-size: 24;
+}
+
+#workTypeId{
+    -fx-font-size: 24;
+}
+
+#determine{
+    -fx-font-size: 35;
+}
+
+#Edit{
+    -fx-font-size: 35;
+}
+
+#workType{
+    -fx-font-size: 24;
+}
+
+#grade{
+    -fx-font-size: 24;
+}
+
+#baseSalary{
+    -fx-font-size: 24;
+}
